@@ -8,15 +8,41 @@
 </head>
 <body>
     <video autoplay></video>
+    <button id="record">Record</button>
 </body>
 <script>
     let chunks = [];
-    let medidaRecorder;
-    let videoPlayer = document.querySelector("video");  
+    let mediaRecorder;
+    let videoPlayer = document.querySelector("video"); 
+    let recordBtn = document.querySelector("#record");
+    let isRecording = false;
    let cameraPromise =  navigator.mediaDevices.getUserMedia({video:true});
-    cameraPromise.then((mediaStream)=>{
-        medidaRecorder = new medidaRecorder(mediaStream);
+   recordBtn.addEventListener("click",e=>{
+       if(isRecording){
+           mediaRecorder.stop();  // stop recording 
+       }
+       else{
+           mediaRecorder.start();
+           isRecording = true; // start recording , this will not append new Recording to old recording
+       }
+   })
+   cameraPromise.then((mediaStream)=>{
         videoPlayer.srcObject = mediaStream;
+        mediaRecorder = new MediaRecorder(mediaStream);
+        mediaRecorder.addEventListener("dataavailable",e=>{
+            chunks.push(e.data);
+        })
+        mediaRecorder.addEventListener("stop",e=>{
+            let blob = new Blob(chunks,{type:"video/url"}); // all chunks are now a single file
+            chunks = []; 
+            let link = URL.createObjectURL(blob) // create a link of blob so we can download the blob using that link
+            let a = document.createElement("a");
+            a.href = link;
+            a.download = "video.mp4";
+            a.click();
+            a.remove();
+        })
+
         console.log("permission given"); 
     })
     cameraPromise.catch(()=>{
