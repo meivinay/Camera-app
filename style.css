@@ -1,0 +1,134 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    margin:0;
+}
+.video-container{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.video-player{
+    height: 100%;
+    width: 100%;
+}
+.action-buttons{
+    position: absolute;
+    height: 15rem;
+    width: 15rem;
+    display: flex;
+    flex-direction: column;
+    top: calc(100vh * 0.5);
+    right: 0rem;
+    outline: none;
+    align-items: center;
+    justify-content: space-around;
+}
+#record,#capture{
+    height: 40%;
+    width: 40%;
+    border-radius: 50%;
+    /* border: none; */
+    border: 5px solid black;
+    padding: 5px;
+}
+#record>span{
+    display: inline-block;
+    background-color: red;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    padding: 0px;
+}
+#capture>span{
+    background-color: white;
+}
+.filters-container{
+    height: 25rem;
+    width: 10rem;
+    position: fixed;
+    top: 20vh;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 3px solid;
+    z-index: 3;
+}
+.filter-video-container{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+}
+/* flex grow need to be set other object fit wont work */
+.filter-live-feed{ 
+    flex-grow: 1;
+    object-fit: fill; 
+    z-index: -1;
+}
+.main-filter{
+    height: 100vh;
+    width: 100vw;
+    /* z-index: 10; */
+    position: fixed;
+    top: 0;
+}
+.zoom-container{
+    height:10rem;
+    width:5rem;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top:10vh;
+    right:1rem
+}
+.zoom-in,.zoom-out{
+    flex-grow: 1;
+    font-size: 4em;
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+
+.recording-animation{
+    animation: recording-on 1s infinite alternate  cubic-bezier(0.73,-0.01, 0.07, 0.99);
+}
+.capture-effect{
+    height: 100vh;
+    width : 100vw;
+    top: 0;
+    position: fixed;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.363)
+}
+.timer{
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 7rem;
+    width: 2rem;
+    border: 1px solid black;
+}
+@keyframes recording-on {
+    0%{
+        height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    padding: 0px;
+    }
+    /* 50%{
+        height: 70%;
+    width: 70%;
+    border-radius: 40%;
+    padding: 0px;
+    } */
+    100%{
+        height: 50%;
+    width: 50%;
+    border-radius: 30%;
+    padding: 0px;
+    }
+}
