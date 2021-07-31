@@ -1,5 +1,6 @@
-  let chunks = [];
-    let mediaRecorder;
+let chunks = [];
+let mediaRecorder;
+let filterColor="";
     let videoContainer = document.createElement("div");
     videoContainer.classList.add("video-contaienr");
     let videoPlayer = document.querySelector("video");
@@ -7,7 +8,6 @@
     let recordBtnSpan = document.querySelector("#record>span");
     let body = document.querySelector("body");
     let filterLiveFeed = document.querySelectorAll(".filter-live-feed");
-    
 
     let isRecording = false;
   let filterContainers = document.querySelectorAll(".filter-video-container");
@@ -17,9 +17,9 @@
         if(previousFilter){
             previousFilter.remove();
         }
-        let color =  e.currentTarget.style.backgroundColor;
+        filterColor =  e.currentTarget.style.backgroundColor;
         let div = document.createElement("div");
-        div.style.backgroundColor = color;
+        div.style.backgroundColor = filterColor;
         div.classList.add("main-filter");
         body.append(div);
         
@@ -34,6 +34,10 @@
         }
         else{
              recordBtnSpan.classList.add("recording-animation");
+             let previousFilter = document.querySelector(".main-filter");
+             if(previousFilter){
+                 previousFilter.remove();
+             }
              mediaRecorder.start();
              isRecording = true; // start recording , this will not append new Recording to old recording
        }
