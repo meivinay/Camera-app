@@ -3,12 +3,14 @@ let mediaRecorder;
 let filterColor="";
     let videoContainer = document.createElement("div");
     videoContainer.classList.add("video-contaienr");
-    let videoPlayer = document.querySelector("video");
+    let videoPlayer = document.querySelector(".video-player");
     let recordBtn = document.querySelector("#record");
     let recordBtnSpan = document.querySelector("#record>span");
     let body = document.querySelector("body");
     let filterLiveFeed = document.querySelectorAll(".filter-live-feed");
-
+    let zoomIn = document.querySelector(".zoom-in");
+    let zoomOut = document.querySelector(".zoom-out");
+    let zoomLevel = 1;  
     let isRecording = false;
   let filterContainers = document.querySelectorAll(".filter-video-container");
   for(let i = 0; i<filterContainers.length;i++){
@@ -39,6 +41,7 @@ let filterColor="";
                  previousFilter.remove();
              }
              mediaRecorder.start();
+            videoPlayer.style.transform = `scale(${1})`;
              isRecording = true; // start recording , this will not append new Recording to old recording
        }
    })
